@@ -23,8 +23,8 @@ public class UserService {
         return new UserDTO(obj);
     }
 
-    public void create(UserDTO request){
-        repository.save(new User(request.getId(), request.getName(), request.getName()));
+    public void create(User request){
+        repository.insert(request);
     }
 
     public void update(String id, UserDTO request){
@@ -32,9 +32,15 @@ public class UserService {
 
         obj.setName(request.getName());
         obj.setEmail(request.getEmail());
+
+        repository.save(obj);
     }
 
     public void delete(String id){
             repository.deleteById(id);
+    }
+
+    public User fromDTO(UserDTO objDto){
+        return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
     }
 }
